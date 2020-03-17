@@ -1,0 +1,20 @@
+#lang racket
+
+; calcula el numero mayor de entre cuatro
+(define (mayor a b c d)
+  (if (a > b)
+      (if (a > c)
+          (if (a > d)
+              a
+              d)
+          (if (c > d)
+              c
+              d))
+      (if (b > c)
+          (if b > d)
+              b
+              d)
+          (if (c > d)
+              c
+              d)))
+              

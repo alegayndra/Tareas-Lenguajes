@@ -1,0 +1,2 @@
+#lang racket
+; Programar la función recursiva multiplica que regresa la lista que resulta de multiplicar un número por los elementos de una lista.
