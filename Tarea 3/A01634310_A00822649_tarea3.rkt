@@ -66,20 +66,21 @@
   )
 
 ; enteros:  que regrese la cantidad total de enteros que se encuentre en una secuencia arbitraria de listas planas que contienen enteros y símbolos.
-; test03: (enteros '(1 a) '(2 3) '(b c) '(9 d))
+; test03: (enteros '(1 a) '(2 3) '(b c) '(9 d))   => 4
 (define (enteros . lista)
-  (cond [(null? lista) 0]
-        [(list? lista) (+ (enteros (car lista)) (enteros (cdr lista)))]
-        [(number? lista) 1]
-        [else 0]
-        )
+  (if (empty? (car lista)) 0
+      (if (number? (caar lista))
+          (+ 1 (enteros (flatten (cdr (flatten lista)))))
+          (enteros (flatten (cdr (flatten lista))))
+          )
+      )
   )
 
 ; forma: (lista plana, dos enteros positivos N y M) lista con N sublistas que contienen M elementos cada una.
 ; Si la lista plana no contiene NxM elementos, los elementos faltantes deberán aparecer como guiónes (-) y si la lista plana
 ; tiene más de NxM elementos
 
-(define (forma lista N M))
+(define (forma lista N M) 'wenas)
 
 
 
