@@ -2,13 +2,13 @@
 ; A01634310 | Diego Estrada Talamantes
 ; A00822649 | Alberto García Viegas
 
-
+; Ejercicio 1
 ; par-menor
 (define (par-menor a b c d e)
   (cond [(> a b) ])
   )
 
-
+; Ejercicio 2
 ; Implementar la función recursiva logaritmo que regrese el valor del logaritmo de y=1+x mediante el cálculo de n términos
 (define (logaritmo x n)
   (if (= n 0)
@@ -20,6 +20,7 @@
       )
   )
 
+; Ejercicio 3
 ; Implementar la función recursiva secuencias que despliegue N secuencias alternadas de los enteros del 1 al M
 (define (secuencias N M)
   (if (= N 0) null
@@ -36,6 +37,7 @@
       )
   )
 
+; Ejercicio 5
 ; repite: Dada una lista de enteros no negativos, regrese una lista donde cada valor se repita el número de veces que representa.
 ; test01: (repite '(0 1 2 3))
 ; test02: (repite '(4 0 3 0 2))
@@ -50,6 +52,7 @@
       )
   )
 
+; Ejercicio 6
 ; contadores: que a partir de una lista de posiciones, dadas como enteros positivos, cree una lista de contadores
 ; donde cada valor en la lista represente la cantidad de veces que aparece esa posición en la lista de posiciones.
 ; test03: (contadores '(6 8 3 6 6 1))
@@ -65,6 +68,7 @@
       )
   )
 
+; Ejercicio 7
 ; enteros:  que regrese la cantidad total de enteros que se encuentre en una secuencia arbitraria de listas planas que contienen enteros y símbolos.
 ; test03: (enteros '(1 a) '(2 3) '(b c) '(9 d))   => 4
 (define (enteros . lista)
@@ -76,6 +80,7 @@
       )
   )
 
+; Ejercicio 8
 ; forma: (lista plana, dos enteros positivos N y M) lista con N sublistas que contienen M elementos cada una.
 ; Si la lista plana no contiene NxM elementos, los elementos faltantes deberán aparecer como guiónes (-) y si la lista plana
 ; tiene más de NxM elementos
@@ -84,7 +89,7 @@
 
 
 
-
+; Ejercicio 9
 ; enumera:  que dada una lista posiblemente imbricada, regresa una lista con la misma forma,
 ; pero que en lugar de cada valor original regrese un número que indique su
 ; profundidad y su posición en la (sub)lista donde se encuentra.
