@@ -3,10 +3,23 @@
 ; A00822649 | Alberto García Viegas
 
 ; Ejercicio 1
-; par-menor
+; par-menor:         se encarga de empezar la recursividad con la funcion auxiliar
+; par-menor-aux:     se encarga de dejar los números más pequeños a la izquierda y recorrer los numeros faltantes para comparar todos
+; par-menor-display: se encarga de desplegar los números
 (define (par-menor a b c d e)
-  (cond [(> a b) ])
-  )
+  (par-menor-aux a b c d e 0))
+
+(define (par-menor-aux a b c d e cont)
+  (if (< cont 3)
+      (cond ((and (< a c) (< b c)) (par-menor-aux a b d e c (+ cont 1)))
+            ((and (< a c) (< c b)) (par-menor-aux a c d e b (+ cont 1)))
+            ((and (< c a) (< b c)) (par-menor-aux c b d e a (+ cont 1))))
+      (par-menor-display a b)))
+
+(define (par-menor-display a b)
+  (display a)
+  (printf "-")
+  (display b))
 
 ; Ejercicio 2
 ; Implementar la función recursiva logaritmo que regrese el valor del logaritmo de y=1+x mediante el cálculo de n términos
