@@ -98,7 +98,30 @@
 ; Si la lista plana no contiene NxM elementos, los elementos faltantes deberán aparecer como guiónes (-) y si la lista plana
 ; tiene más de NxM elementos
 
-(define (forma lista N M) 'wenas)
+(define (forma lista N M)
+  (if (zero? N)
+    '()
+    (cons (forma-aux lista M) (forma (if (> (length lista) M) (drop lista M) (drop lista (length lista))) (- N 1) M))))
+
+(define (forma-aux lista M)
+  (if (zero? M)
+    '()
+    (if (null? lista)
+      (forma-aux-null M)
+      (cons (car lista) (forma-aux (cdr lista) (- M 1))))))
+
+(define (forma-aux-null M)
+  (if (zero? M)
+    '()
+    (cons '- (forma-aux-null (- M 1)))))
+
+
+; (define (forma-llenar-sublistas lista M cont)
+;   (if (eq M cont) 
+;     '()
+;     (if (null? lista)
+;       (cons "-" (forma-llenar-sublistas '() M (+ cont 1))
+;       (cons (car lista) (forma-llenar-sublistas (cdr lista) M (+ cont 1))))))
 
 
 
