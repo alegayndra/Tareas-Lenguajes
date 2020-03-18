@@ -115,7 +115,6 @@
     '()
     (cons '- (forma-aux-null (- M 1)))))
 
-
 ; (define (forma-llenar-sublistas lista M cont)
 ;   (if (eq M cont) 
 ;     '()
@@ -132,11 +131,29 @@
 ; test02: (enumera '(3 (b (c 2 (d)) a) 1))
 (define (enumera lista)
   (enumera-aux lista 1 1))
+
 (define (enumera-aux lista prof pos)
-  (if (null? list) null
+  (if (null? lista) '()
       (if (list? (car lista))
-          (cons (enumera-aux (car lista) prof 1) (enumera-aux (cdr lista) prof 1))
-          (+ prof (/ pos 10))
+          (cons (enumera-aux (car lista) (+ prof 1) 1) (enumera-aux (cdr lista) prof 2))
+          (cons (string-append (itos prof) "." (itos pos)) (enumera-aux (cdr lista) prof (+ pos 1)))
           )
       )
   )
+
+(define (itos num)
+  (if (< num 10)
+    (itos-aux num)
+    (string-append (itos (/ num 10)) (itos-aux (remainder num 10)))))
+
+(define (itos-aux num)
+  (cond ((= num 0) "0")
+        ((= num 1) "1")
+        ((= num 2) "2")
+        ((= num 3) "3")
+        ((= num 4) "4")
+        ((= num 5) "5")
+        ((= num 6) "6")
+        ((= num 7) "7")
+        ((= num 8) "8")
+        ((= num 9) "9")))
