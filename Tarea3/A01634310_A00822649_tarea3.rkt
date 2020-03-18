@@ -140,10 +140,16 @@
 (define (enumera lista)
   (enumera-aux lista 1 1))
 (define (enumera-aux lista prof pos)
-  (if (null? list) null
+  (if (null? lista) '()
       (if (list? (car lista))
-          (cons (enumera-aux (car lista) prof 1) (enumera-aux (cdr lista) prof 1))
-          (+ prof (/ pos 10))
+          (cons (enumera-aux (car lista) (+ 1 prof) 1) (enumera-aux (cdr lista) prof (+ 1 pos)))
+          (cons (+ prof (num-pos pos)) (enumera-aux (cdr lista) prof (+ 1 pos)))
           )
       )
   )
+(define (num-pos pos)
+  (cond [(= pos 10) (exact->inexact (/ 1 100))]
+        [(> pos 10) (exact->inexact (/ pos 100))]
+        [else (exact->inexact (/ pos 10))]
+        ))
+
