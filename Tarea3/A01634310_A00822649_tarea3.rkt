@@ -132,7 +132,7 @@
 (define (enumera-aux lista prof pos)
   (if (null? lista) '()
       (if (list? (car lista))
-          (cons (enumera-aux (car lista) (+ prof 1) 1) (enumera-aux (cdr lista) prof 2))
+          (cons (enumera-aux (car lista) (+ prof 1) 1) (enumera-aux (cdr lista) prof (+ pos 1)))
           (cons (string-append (itos prof) "." (itos pos)) (enumera-aux (cdr lista) prof (+ pos 1)))
           )
       )
@@ -141,7 +141,7 @@
 (define (itos num)
   (if (< num 10)
     (itos-aux num)
-    (string-append (itos (/ num 10)) (itos-aux (remainder num 10)))))
+    (string-append (itos (truncate (/ num 10))) (itos-aux (remainder num 10)))))
 
 (define (itos-aux num)
   (cond ((= num 0) "0")
