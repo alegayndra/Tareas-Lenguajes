@@ -104,7 +104,6 @@
 ; forma: (lista plana, dos enteros positivos N y M) lista con N sublistas que contienen M elementos cada una.
 ; Si la lista plana no contiene NxM elementos, los elementos faltantes deberán aparecer como guiónes (-) y si la lista plana
 ; tiene más de NxM elementos
-
 (define (forma lista N M)
   (if (zero? N)
     '()
@@ -121,16 +120,7 @@
   (if (zero? M)
     '()
     (cons '- (forma-aux-null (- M 1)))))
-
-; (define (forma-llenar-sublistas lista M cont)
-;   (if (eq M cont) 
-;     '()
-;     (if (null? lista)
-;       (cons "-" (forma-llenar-sublistas '() M (+ cont 1))
-;       (cons (car lista) (forma-llenar-sublistas (cdr lista) M (+ cont 1))))))
-
-
-
+    
 ; Ejercicio 9
 ; enumera:  que dada una lista posiblemente imbricada, regresa una lista con la misma forma,
 ; pero que en lugar de cada valor original regrese un número que indique su
