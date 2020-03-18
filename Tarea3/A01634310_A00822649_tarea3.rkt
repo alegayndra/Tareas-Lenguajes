@@ -69,17 +69,24 @@
 ; contadores: que a partir de una lista de posiciones, dadas como enteros positivos, cree una lista de contadores
 ; donde cada valor en la lista represente la cantidad de veces que aparece esa posición en la lista de posiciones.
 ; test03: (contadores '(6 8 3 6 6 1))
-(define (contadores lista)
-  (if (null? lista) null
-      (cons (contadores-aux lista (car lista)) (contadores (cdr lista)))
+(define (contadores lista) (reverse (contadores-shido lista (max-num lista 0))))
+(define (contadores-shido lista pos)
+  (if (= pos 0) '()
+      (cons (contadores-aux lista pos) (contadores-shido lista (- pos 1)))
       )
   )
 (define (contadores-aux lista pos)
-  (if (= (car lista) pos)
-      (+ 1 (contadores-aux (cdr lista) pos))
-      (contadores-aux (cdr lista) pos)
+  (if (null? lista) 0
+      (if (= (car lista) pos)
+          (+ 1 (contadores-aux (cdr lista) pos))
+          (contadores-aux (cdr lista) pos)
+          )
       )
   )
+(define (max-num lista maxim)
+  (if (null? lista) maxim
+      (if (> (car lista) maxim) (max-num (cdr lista) (car lista)) (max-num (cdr lista) maxim))))
+  
 
 ; Ejercicio 7
 ; enteros:  que regrese la cantidad total de enteros que se encuentre en una secuencia arbitraria de listas planas que contienen enteros y símbolos.
