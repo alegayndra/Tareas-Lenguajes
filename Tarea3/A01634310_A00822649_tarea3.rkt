@@ -3,10 +3,23 @@
 ; A00822649 | Alberto García Viegas
 
 ; Ejercicio 1
-; par-menor
+; par-menor:         se encarga de empezar la recursividad con la funcion auxiliar
+; par-menor-aux:     se encarga de dejar los números más pequeños a la izquierda y recorrer los numeros faltantes para comparar todos
+; par-menor-display: se encarga de desplegar los números
 (define (par-menor a b c d e)
-  (cond [(> a b) ])
-  )
+  (par-menor-aux a b c d e 0))
+
+(define (par-menor-aux a b c d e cont)
+  (if (< cont 3)
+      (cond ((and (< a c) (< b c)) (par-menor-aux a b d e c (+ cont 1)))
+            ((and (< a c) (< c b)) (par-menor-aux a c d e b (+ cont 1)))
+            ((and (< c a) (< b c)) (par-menor-aux c b d e a (+ cont 1))))
+      (par-menor-display a b)))
+
+(define (par-menor-display a b)
+  (display a)
+  (printf "-")
+  (display b))
 
 ; Ejercicio 2
 ; Implementar la función recursiva logaritmo que regrese el valor del logaritmo de y=1+x mediante el cálculo de n términos
@@ -85,7 +98,30 @@
 ; Si la lista plana no contiene NxM elementos, los elementos faltantes deberán aparecer como guiónes (-) y si la lista plana
 ; tiene más de NxM elementos
 
-(define (forma lista N M) 'wenas)
+(define (forma lista N M)
+  (if (zero? N)
+    '()
+    (cons (forma-aux lista M) (forma (if (> (length lista) M) (drop lista M) (drop lista (length lista))) (- N 1) M))))
+
+(define (forma-aux lista M)
+  (if (zero? M)
+    '()
+    (if (null? lista)
+      (forma-aux-null M)
+      (cons (car lista) (forma-aux (cdr lista) (- M 1))))))
+
+(define (forma-aux-null M)
+  (if (zero? M)
+    '()
+    (cons '- (forma-aux-null (- M 1)))))
+
+
+; (define (forma-llenar-sublistas lista M cont)
+;   (if (eq M cont) 
+;     '()
+;     (if (null? lista)
+;       (cons "-" (forma-llenar-sublistas '() M (+ cont 1))
+;       (cons (car lista) (forma-llenar-sublistas (cdr lista) M (+ cont 1))))))
 
 
 
