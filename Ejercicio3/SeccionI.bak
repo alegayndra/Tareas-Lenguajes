@@ -1,0 +1,7 @@
+#lang racket
+(define (unos input)
+  (unos-aux input 0 (length input)))
+(define (unos-aux lista pos length)
+  (cond [(= lista null) 0]
+        [(= (car lista) 1) (- length pos)]
+        [else (unos-aux (cdr lista) (+ pos 1) length)]))
