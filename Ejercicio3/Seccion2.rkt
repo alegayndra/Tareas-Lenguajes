@@ -22,3 +22,19 @@
         (if (null? (cdr lista-op))
             null
             (list (aplica-listas (cdr lista-op) lista1 lista2)))))
+
+; Problema 7 - alguno?
+; Programar el predicado recursivo alguno? que verifique si al menos un par
+; elementos correspondientes de dos listas cumplen con un predicado binario.
+; Probar con:
+; > (alguno? < ‘(9 2 10) ‘(6 7 8)) => #t
+; > (alguno? (lambda (x y) (negative? (- x y))) ‘(5 8 10) ‘(4 5 6))
+; => #f
+; > (alguno? > ‘(3 1 15) ‘(6 7 8)) => #t
+
+(define (alguno? op lista1 lista2)
+    (if (op (car lista1) (car lista2))
+        #t
+        (if (null? (cdr lista1))
+            #f
+            (alguno? op (cdr lista1) (cdr lista2)))))
