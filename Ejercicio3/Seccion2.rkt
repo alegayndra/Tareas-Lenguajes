@@ -38,3 +38,26 @@
         (if (null? (cdr lista1))
             #f
             (alguno? op (cdr lista1) (cdr lista2)))))
+
+; Problema 9 - filtra
+; Programar la función de orden superior filtra que sin utilizar recursividad
+; explícita elimine de una matriz de números todos los elementos que NO cumplan
+; una condición unaria que se le pase como argumento. No utilizar el primitivo
+; filter.
+; Probar con:
+; > (filtra negative? '((1 -2 3 4)(-5 6 -7 -8))) => ((-2)(-5 -7 -8))
+; > (filtra (lambda (x) (> x 5)) '((4 9)(1 2)(10 7))) => ((9)()(10 7))
+
+(define (filtra-lista op lista)
+    (if (null? lista)
+        null
+        (if (eq? (op (car lista)) #t)
+            (append (list (car lista)) (filtra-lista op (cdr lista)))
+            (filtra-lista op (cdr lista)))))
+
+(define (filtra op matriz)
+    (if (null? matriz)
+        null
+        (cons (filtra-lista op (car matriz)) (filtra op (cdr matriz)))))
+
+
