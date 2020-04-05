@@ -46,30 +46,63 @@
 (define vinc (verbosa (lambda (x) (+ x 1))))
 
 ; Problema 9 - filtra
-; Programar la función de orden superior filtra que sin utilizar recursividad
-; explícita elimine de una matriz de números todos los elementos que NO cumplan
-; una condición unaria que se le pase como argumento. No utilizar el primitivo
-; filter.
-; Probar con:
 ; > (filtra negative? '((1 -2 3 4)(-5 6 -7 -8))) => ((-2)(-5 -7 -8))
 ; > (filtra (lambda (x) (> x 5)) '((4 9)(1 2)(10 7))) => ((9)()(10 7))
 
-(define (filtra-lista op lista)
-    (if (null? lista)
-        null
-        (if (eq? (op (car lista)) #t)
-            (append (list (car lista)) (filtra-lista op (cdr lista)))
-            (filtra-lista op (cdr lista)))))
+(define filtra-aux 
+    (lambda (filtrar oper lista)))
 
-(define (filtra op matriz)
-    (if (null? matriz)
-        null
-        (cons (filtra-lista op (car matriz)) (filtra op (cdr matriz)))))
+(define filtra (lambda (oper lista) (filtra-aux remove* oper lista)))
+
+; (define (filtra-lista op lista)
+;     (if (null? lista)
+;         null
+;         (if (eq? (op (car lista)) #t)
+;             (append (list (car lista)) (filtra-lista op (cdr lista)))
+;             (filtra-lista op (cdr lista)))))
+
+; (define (filtra op matriz)
+;     (if (null? matriz)
+;         null
+;         (cons (filtra-lista op (car matriz)) (filtra op (cdr matriz)))))
 
 ; Problema 10 - impares
 ;(impares '((1 2 3)(4 5 6)))
 (define (impares matrix)
   (remove* '(()) (append-map (lambda (lista) (map (lambda (casilla) (if (odd? casilla) casilla null)) lista)) matrix)))
+
+; Problema 11 - inserta
+; (inserta 1 '(1 2 3 4))        => (1 1 2 1 3 1 4 1)
+; (inserta 'a '(b (c) (d e)))   => (b a (c) a (d e) a)
+
+(define inserta-valor 
+    (lambda (op init valor lista)
+        (if (null? lista)
+            init
+            (op (car lista) (op valor (inserta-valor op init valor (cdr lista)))))))
+
+(define inserta (lambda (valor lista) (inserta-valor cons null valor lista)))
+
+; (define (inserta valor lista)
+;     (if (null? lista)
+;         null
+;         (cons (car lista) (cons valor (inserta valor (cdr lista))))))
+
+; (define inserta (lambda (valor lista)
+;     (map (lambda (valor1 valorLista) (cons valor1 (cons (car valorLista) null))) (list valor lista))))
+
+(define aplica-doble 
+    (lambda (función)
+        (lambda (valor)
+            (función (función valor)))))
+
+(define inc2 (aplica-doble add1))
+
+; (define (inserta valor lista)
+;     (if (null? lista)
+;         null
+;         ; (for-each (cons (car lista) (cons valor (cdr lista))) lista)))
+;         (cons (lambda (valor)))
 
 ; Problema 12 - multifnc
 ;(multifnc '(sqr sqrt (lambda (v) (/ 1 v))) '(1 4 9))
