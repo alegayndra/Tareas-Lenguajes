@@ -49,22 +49,21 @@
 ; > (filtra negative? '((1 -2 3 4)(-5 6 -7 -8))) => ((-2)(-5 -7 -8))
 ; > (filtra (lambda (x) (> x 5)) '((4 9)(1 2)(10 7))) => ((9)()(10 7))
 
-(define filtra-aux 
-    (lambda (filtrar oper lista)))
+(define filtra-lista 
+    (lambda (oper lista)
+        (if (null? lista)
+        null
+        (if (eq? (oper (car lista)) #t)
+            (append (list (car lista)) (filtra-lista oper (cdr lista)))
+            (filtra-lista oper (cdr lista))))))
 
-(define filtra (lambda (oper lista) (filtra-aux remove* oper lista)))
+(define filtra-matriz 
+    (lambda (oper matriz)
+        (if (null? matriz)
+            null
+            (cons (filtra-lista oper (car matriz)) (filtra-matriz oper (cdr matriz))))))
 
-; (define (filtra-lista op lista)
-;     (if (null? lista)
-;         null
-;         (if (eq? (op (car lista)) #t)
-;             (append (list (car lista)) (filtra-lista op (cdr lista)))
-;             (filtra-lista op (cdr lista)))))
-
-; (define (filtra op matriz)
-;     (if (null? matriz)
-;         null
-;         (cons (filtra-lista op (car matriz)) (filtra op (cdr matriz)))))
+(define filtra (lambda (oper matriz) (filtra-matriz oper matriz)))
 
 ; Problema 10 - impares
 ;(impares '((1 2 3)(4 5 6)))
@@ -82,14 +81,6 @@
             (op (car lista) (op valor (inserta-valor op init valor (cdr lista)))))))
 
 (define inserta (lambda (valor lista) (inserta-valor cons null valor lista)))
-
-; (define (inserta valor lista)
-;     (if (null? lista)
-;         null
-;         (cons (car lista) (cons valor (inserta valor (cdr lista))))))
-
-; (define inserta (lambda (valor lista)
-;     (map (lambda (valor1 valorLista) (cons valor1 (cons (car valorLista) null))) (list valor lista))))
 
 (define aplica-doble 
     (lambda (función)
