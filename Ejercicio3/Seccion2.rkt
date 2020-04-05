@@ -3,14 +3,8 @@
 ; A00822649 | Alberto García Viegas
 
 ; Problema 6 - aplica-listas
-; Programar la función recursiva aplica-listas que aplique una lista de funciones
-; binarias a cada elemento correspondiente en dos listas del mismo tamaño para
-; obtener una lista de sublistas con los resultados de cada operador.
-; Probar con:
-; > (aplica-listas (list + - * /) ‘(1 2 3) ‘(4 5 6))
-; => ((5 7 9)(-3 -3 -3)(4 10 18)(1/4 2/5 1/2))
-; > (aplica-listas (list cons list append) ‘((a b)) ‘((c d)))
-; => ((((a b) c d))(((a b)(c d)))((a b c d)))
+; > (aplica-listas (list + - * /) '(1 2 3) '(4 5 6))            => ((5 7 9)(-3 -3 -3)(4 10 18)(1/4 2/5 1/2))
+; > (aplica-listas (list cons list append) '((a b)) '((c d)))   => ((((a b) c d))(((a b)(c d)))((a b c d)))
 
 (define (aplica-operador op lista1 lista2)
     (if (null? lista1)
@@ -24,13 +18,9 @@
             (list (aplica-listas (cdr lista-op) lista1 lista2)))))
 
 ; Problema 7 - alguno?
-; Programar el predicado recursivo alguno? que verifique si al menos un par
-; elementos correspondientes de dos listas cumplen con un predicado binario.
-; Probar con:
-; > (alguno? < ‘(9 2 10) ‘(6 7 8)) => #t
-; > (alguno? (lambda (x y) (negative? (- x y))) ‘(5 8 10) ‘(4 5 6))
-; => #f
-; > (alguno? > ‘(3 1 15) ‘(6 7 8)) => #t
+; > (alguno? < '(9 2 10) '(6 7 8))                                  => #t
+; > (alguno? (lambda (x y) (negative? (- x y))) '(5 8 10) '(4 5 6)) => #f
+; > (alguno? > '(3 1 15) '(6 7 8))                                  => #t
 
 (define (alguno? op lista1 lista2)
     (if (op (car lista1) (car lista2))
@@ -46,8 +36,8 @@
 (define vinc (verbosa (lambda (x) (+ x 1))))
 
 ; Problema 9 - filtra
-; > (filtra negative? '((1 -2 3 4)(-5 6 -7 -8))) => ((-2)(-5 -7 -8))
-; > (filtra (lambda (x) (> x 5)) '((4 9)(1 2)(10 7))) => ((9)()(10 7))
+; > (filtra negative? '((1 -2 3 4)(-5 6 -7 -8)))        => ((-2)(-5 -7 -8))
+; > (filtra (lambda (x) (> x 5)) '((4 9)(1 2)(10 7)))   => ((9)()(10 7))
 
 (define filtra-lista 
     (lambda (oper lista)
@@ -71,8 +61,8 @@
   (remove* '(()) (append-map (lambda (lista) (map (lambda (casilla) (if (odd? casilla) casilla null)) lista)) matrix)))
 
 ; Problema 11 - inserta
-; (inserta 1 '(1 2 3 4))        => (1 1 2 1 3 1 4 1)
-; (inserta 'a '(b (c) (d e)))   => (b a (c) a (d e) a)
+; > (inserta 1 '(1 2 3 4))        => (1 1 2 1 3 1 4 1)
+; > (inserta 'a '(b (c) (d e)))   => (b a (c) a (d e) a)
 
 (define inserta-valor 
     (lambda (op init valor lista)
@@ -81,19 +71,6 @@
             (op (car lista) (op valor (inserta-valor op init valor (cdr lista)))))))
 
 (define inserta (lambda (valor lista) (inserta-valor cons null valor lista)))
-
-(define aplica-doble 
-    (lambda (función)
-        (lambda (valor)
-            (función (función valor)))))
-
-(define inc2 (aplica-doble add1))
-
-; (define (inserta valor lista)
-;     (if (null? lista)
-;         null
-;         ; (for-each (cons (car lista) (cons valor (cdr lista))) lista)))
-;         (cons (lambda (valor)))
 
 ; Problema 12 - multifnc
 ;(multifnc '(sqr sqrt (lambda (v) (/ 1 v))) '(1 4 9))
