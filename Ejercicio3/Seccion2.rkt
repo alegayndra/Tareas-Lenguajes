@@ -39,21 +39,18 @@
 ; > (filtra negative? '((1 -2 3 4)(-5 6 -7 -8)))        => ((-2)(-5 -7 -8))
 ; > (filtra (lambda (x) (> x 5)) '((4 9)(1 2)(10 7)))   => ((9)()(10 7))
 
-(define filtra-lista 
-    (lambda (oper lista)
-        (if (null? lista)
-        null
-        (if (eq? (oper (car lista)) #t)
-            (append (list (car lista)) (filtra-lista oper (cdr lista)))
-            (filtra-lista oper (cdr lista))))))
-
-(define filtra-matriz 
+(define filtra 
     (lambda (oper matriz)
-        (if (null? matriz)
-            null
-            (cons (filtra-lista oper (car matriz)) (filtra-matriz oper (cdr matriz))))))
-
-(define filtra (lambda (oper matriz) (filtra-matriz oper matriz)))
+        (map 
+            (lambda (lista)
+                (apply append 
+                    (map 
+                        (lambda (valor) 
+                            (if (oper valor)
+                                (list valor)
+                                null)) 
+                    lista))) 
+        matriz)))
 
 ; Problema 10 - impares
 ;(impares '((1 2 3)(4 5 6)))
