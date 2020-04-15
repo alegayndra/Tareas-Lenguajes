@@ -103,10 +103,31 @@
 ; Problema 3 - Funciones de orden superior ------------------------------------------------------------------
 
 ; 3.1) Contar la cantidad de ceros dentro de una matriz
-; (cuenta-ceros '()) => 0
-; (cuenta-ceros '((0 1)(2 3))) => 1
-; (cuenta-ceros '((4 0 3 1)(5 1 2 1)(6 0 1 1))) => 2
+; (cuenta-ceros '())                            ; => 0
+; (cuenta-ceros '((0 1)(2 3)))                  ; => 1
+; (cuenta-ceros '((4 0 3 1)(5 1 2 1)(6 0 1 1))) ; => 2
 
+(define cuenta-ceros-aux
+    (lambda (matriz)
+        (apply append
+            (map
+                (lambda (lista)
+                    (map
+                        (lambda (valor)
+                            (if (= valor 0) 1 0))
+                    lista))
+            matriz))))
+
+(define cuenta-ceros
+    (lambda (matriz)
+        (if (null? matriz) 
+            0
+            (apply + (cuenta-ceros-aux matriz)))))
+
+
+; (cuenta-ceros '())                            ; => 0
+; (cuenta-ceros '((0 1)(2 3)))                  ; => 1
+; (cuenta-ceros '((4 0 3 1)(5 1 2 1)(6 0 1 1))) ; => 2
 
 ; 3.2) Regresar lista con el valor menor y mayor dentro de una matriz
 ; (minmax '((2))) => (2 2)
