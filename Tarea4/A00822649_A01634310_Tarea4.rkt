@@ -130,10 +130,24 @@
 ; (cuenta-ceros '((4 0 3 1)(5 1 2 1)(6 0 1 1))) ; => 2
 
 ; 3.2) Regresar lista con el valor menor y mayor dentro de una matriz
-; (minmax '((2))) => (2 2)
-; (minmax '((0 1)(2 3))) => (0 3)
-; (minmax '((4 0 -3 1)(5 -1 2 1)(6 0 1 1))) => (-3 6)
+(define aplanar-matriz
+    (lambda (matriz)
+        (apply append matriz)))
 
+(define minmax-aux
+    (lambda (oper valor lista) 
+        (cond   ((null? lista) valor)
+                ((oper valor (car lista))   (minmax-aux oper valor       (cdr lista)))
+                (else                       (minmax-aux oper (car lista) (cdr lista)))
+            )))
+
+(define minmax
+    (lambda (matriz) (cons (minmax-aux < (car (aplanar-matriz matriz)) (cdr (aplanar-matriz matriz))) (cons (minmax-aux > (car (aplanar-matriz matriz)) (cdr (aplanar-matriz matriz))) null))))
+
+; Casos de pruebas
+; (minmax '((2)))                           ; => (2 2)
+; (minmax '((0 1)(2 3)))                    ; => (0 3)
+; (minmax '((4 0 -3 1)(5 -1 2 1)(6 0 1 1))) ; => (-3 6)
 
 ; 3.3) Multiplicación de matrices
 ; (multmat '((1 2 3)(0 2 1)) '((4 0 3 1)(5 1 2 1)(6 0 1 1))) => ((32 2 10 6)(16 2 5 3))
