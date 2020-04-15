@@ -1,6 +1,6 @@
 #lang racket
 ; A01634310 | Diego Estrada Talamantes
-; A00       | Alberto Garcia Viegas
+; A00822649 | Alberto Garcia Viegas
 
 
 
@@ -124,12 +124,12 @@
             0
             (apply + (cuenta-ceros-aux matriz)))))
 
-
-; (cuenta-ceros '())                            ; => 0
-; (cuenta-ceros '((0 1)(2 3)))                  ; => 1
-; (cuenta-ceros '((4 0 3 1)(5 1 2 1)(6 0 1 1))) ; => 2
-
 ; 3.2) Regresar lista con el valor menor y mayor dentro de una matriz
+; Casos de pruebas
+; (minmax '((2)))                           ; => (2 2)
+; (minmax '((0 1)(2 3)))                    ; => (0 3)
+; (minmax '((4 0 -3 1)(5 -1 2 1)(6 0 1 1))) ; => (-3 6)
+
 (define aplanar-matriz
     (lambda (matriz)
         (apply append matriz)))
@@ -143,11 +143,6 @@
 
 (define minmax
     (lambda (matriz) (cons (minmax-aux < (car (aplanar-matriz matriz)) (cdr (aplanar-matriz matriz))) (cons (minmax-aux > (car (aplanar-matriz matriz)) (cdr (aplanar-matriz matriz))) null))))
-
-; Casos de pruebas
-; (minmax '((2)))                           ; => (2 2)
-; (minmax '((0 1)(2 3)))                    ; => (0 3)
-; (minmax '((4 0 -3 1)(5 -1 2 1)(6 0 1 1))) ; => (-3 6)
 
 ; 3.3) Multiplicación de matrices
 ; (multmat '((1 2 3)(0 2 1)) '((4 0 3 1)(5 1 2 1)(6 0 1 1))) => ((32 2 10 6)(16 2 5 3))
@@ -176,5 +171,3 @@
     (if (null? mat1)
         mat1
         (cons (multiplicar-renglon (car mat1) mat2 0) (multmat (cdr mat1) mat2))))
-
-(multmat '((1 2 3)(0 2 1)) '((4 0 3 1)(5 1 2 1)(6 0 1 1)))
