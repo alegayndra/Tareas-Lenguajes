@@ -151,3 +151,30 @@
 
 ; 3.3) Multiplicación de matrices
 ; (multmat '((1 2 3)(0 2 1)) '((4 0 3 1)(5 1 2 1)(6 0 1 1))) => ((32 2 10 6)(16 2 5 3))
+
+(define (conseguir-val-mat-col lista col)
+    (if (= col 0)
+        (car lista)
+        (conseguir-val-mat-col (cdr lista) (sub1 col))))
+
+(define (conseguir-val-mat-ren mat reng col)
+    (if (= reng 0)
+        (conseguir-val-mat-col (car mat) col)
+        (conseguir-val-mat-ren (cdr mat) (sub1 reng) col)))
+
+(define (multiplicar-casilla lista mat reng col )
+    (if (null? lista)
+        0
+        (+ (* (car lista) (conseguir-val-mat-ren mat reng col)) (multiplicar-casilla (cdr lista) mat (add1 reng) col))))
+
+(define (multiplicar-renglon lista mat col)
+    (if (= col (add1 (length lista)))
+        null
+        (cons (multiplicar-casilla lista mat 0 col) (multiplicar-renglon lista mat (add1 col)))))
+
+(define (multmat mat1 mat2)
+    (if (null? mat1)
+        mat1
+        (cons (multiplicar-renglon (car mat1) mat2 0) (multmat (cdr mat1) mat2))))
+
+(multmat '((1 2 3)(0 2 1)) '((4 0 3 1)(5 1 2 1)(6 0 1 1)))
